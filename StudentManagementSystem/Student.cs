@@ -12,6 +12,11 @@ namespace StudentManagementSystem
         public int Age { get; set; }
 
         public List<Course> Courses { get; set; } = [];//TODO ref
+
+        /// i don't allow for "Courses" to be a parameter in the constructor
+        /// i let the school to enter the student with "no courses" at first
+        /// if the student has some courses .. and i need to add anew course >> so will not make sense to say that the student has that course and then add it in the list
+        /// so i will let the school to enroll the student in courses through the "Enroll" method only :)
         public Student(int studentId, string name, int age)
         {
             StudentId = studentId;
@@ -19,7 +24,7 @@ namespace StudentManagementSystem
             Age = age;
         }
         //---------
-        public bool Enroll(Course course)
+        public bool Enroll(Course course)//instead of making the "Courses" list public and let the school to add courses directly to it :)
         {
             if(course == null) return false;
             

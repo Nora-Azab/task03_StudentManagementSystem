@@ -11,6 +11,7 @@ namespace StudentManagementSystem
         public string Title { get; set; }
         public Instructor Instructor { get; set; } //TODO ref
 
+        //i let instructor to enter by constractor .. because i school can enter it with "null"
         public Course(int courseId, string title, Instructor instructor)
         {
             CourseId = courseId;
