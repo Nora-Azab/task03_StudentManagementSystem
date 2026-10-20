@@ -24,41 +24,42 @@
             {
                 Console.Clear();
                 ShowSchoolMenu();
+                Console.Write("Enter your choice => ");
                 choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
                     case 1:
                         AddStudent(school);
                         break;
-                    //case 2:
-                    //    school.AddInstructor(school);
-                    //    break;
+                    case 2:
+                        AddInstructor(school);
+                        break;
                     //case 3:
-                    //    school.AddCourse(school);
+                    //    AddCourse(school);
                     //    break;
                     //case 4:
-                    //    school.EnrollStudentInCourse(school);
+                    //    EnrollStudentInCourse(school);
                     //    break;
                     //case 5:
-                    //    school.ShowAllStudents(school);
+                    //    ShowAllStudents(school);
                     //    break;
                     //case 6:
-                    //    school.ShowAllCourses(school);
+                    //    ShowAllCourses(school);
                     //    break;
                     //case 7:
-                    //    school.ShowAllInstructors(school);
+                    //    ShowAllInstructors(school);
                     //    break;
                     //case 8:
-                    //    school.FindStudentByIdOrName(school);
+                    //      FindStudentByIdOrName(school);
                     //    break;
                     //case 9:
-                    //    school.FindCourseByIdOrName(school);
+                    //    FindCourseByIdOrName(school);
                     //    break;
                     //case 10:
-                    //    school.CheckStudentEnrollInCourse(school);
+                    //    CheckStudentEnrollInCourse(school);
                     //    break;
                     //case 11:
-                    //    school.GetInstructorNameByCourseName(school);
+                    //    GetInstructorNameByCourseName(school);
                     //    break;
                     case 12:
                         Console.WriteLine("Good Bye :)");
@@ -67,15 +68,16 @@
                         Console.WriteLine("Invalid choice, try again:)");
                         break;
                 }
-
+                Console.ReadKey(true);
+                Console.WriteLine("press any key to continue :)");
             } while (true);
         }
         //==================
         static void ShowSchoolMenu()
         {
             Console.WriteLine("============= School Menu =============");
-            Console.WriteLine("1. Add Student");
-            Console.WriteLine("2. Add Instructor");
+            Console.WriteLine("1. Add Student");//done
+            Console.WriteLine("2. Add Instructor");//done
             Console.WriteLine("3. Add Course");
             Console.WriteLine("4. Enroll Student in Course");
             Console.WriteLine("5. Show All Students");
@@ -92,13 +94,14 @@
         static void AddStudent(School school)
         {
             Console.Clear();
-
+            Console.WriteLine("=========Adding New Student=========");
             Console.Write("Id : ");
             ///  this will happen when i pass the student to the school class to add it to the list of students :)
             /// i will check if the id is already exist or not in the school class :)
             int id = Convert.ToInt32(Console.ReadLine());
             string name = ReadName();
             int age = ReadAge();
+            Console.WriteLine("=====================================");
             //-----------------
             if ( school.AddStudent(new Student(id, name, age)) )
             {
@@ -110,7 +113,7 @@
             }
         }
         //========
-        static string ReadName()
+        static string ReadName()//TODO : name must be strings not numbers :)
         {
             string? name;
             do
@@ -126,7 +129,7 @@
             return name;
         }
         //========
-        static int ReadAge()
+        static int ReadAge()//TODO : must be numbers only
         {
             int age;
             do
@@ -139,6 +142,27 @@
                 }
             } while (age <= 0);
             return age;
+        }
+        //========
+        static void AddInstructor(School school)
+        {
+            Console.Clear();
+            Console.WriteLine("=========Adding New Instructor=========");
+            Console.Write("Id : ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            string name = ReadName();
+            Console.Write("Specialization : ");
+            string specialization = Console.ReadLine() ?? "";
+            Console.WriteLine("=====================================");
+            //-----------------
+            if (school.AddInstructor(new Instructor(id, name, specialization)))
+            {
+                Console.WriteLine($"Mr. {name} added successfully :)");
+            }
+            else
+            {
+                Console.WriteLine("this instructor with this id already exists, try again :)");
+            }
         }
         //========
 
