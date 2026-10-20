@@ -7,7 +7,7 @@ namespace StudentManagementSystem
     public class Course
     {
 
-        public int CourseId { get; set; }
+        public int CourseId { get; private set; }
         public string Title { get; set; }
         public Instructor Instructor { get; set; } //TODO ref
 

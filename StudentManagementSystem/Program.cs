@@ -1,4 +1,6 @@
-﻿namespace StudentManagementSystem
+﻿using System.ComponentModel.Design;
+
+namespace StudentManagementSystem
 {
 
     /* TODO :
@@ -34,9 +36,9 @@
                     case 2:
                         AddInstructor(school);
                         break;
-                    //case 3:
-                    //    AddCourse(school);
-                    //    break;
+                    case 3:
+                        AddCourse(school);
+                        break;
                     //case 4:
                     //    EnrollStudentInCourse(school);
                     //    break;
@@ -78,7 +80,7 @@
             Console.WriteLine("============= School Menu =============");
             Console.WriteLine("1. Add Student");//done
             Console.WriteLine("2. Add Instructor");//done
-            Console.WriteLine("3. Add Course");
+            Console.WriteLine("3. Add Course");//done
             Console.WriteLine("4. Enroll Student in Course");
             Console.WriteLine("5. Show All Students");
             Console.WriteLine("6. Show All Courses");
@@ -99,7 +101,7 @@
             ///  this will happen when i pass the student to the school class to add it to the list of students :)
             /// i will check if the id is already exist or not in the school class :)
             int id = Convert.ToInt32(Console.ReadLine());
-            string name = ReadName();
+            string name = ReadString("Name");
             int age = ReadAge();
             Console.WriteLine("=====================================");
             //-----------------
@@ -113,20 +115,20 @@
             }
         }
         //========
-        static string ReadName()//TODO : name must be strings not numbers :)
+        static string ReadString(string target)//TODO : name must be strings not numbers :)
         {
-            string? name;
+            string? str;
             do
             {
-                Console.Write("Name : ");
-                name = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(name))
+                Console.Write($"{target} : ");
+                str = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(str))
                 {
                     //خصوصا عشان هنسيرش بيه بعد كده
-                    Console.WriteLine("Invalid Name (cannot be empty) :)");
+                    Console.WriteLine($"{target} is invalid (cannot be empty) :)");
                 }
-            } while (string.IsNullOrWhiteSpace(name));
-            return name;
+            } while (string.IsNullOrWhiteSpace(str));
+            return str;
         }
         //========
         static int ReadAge()//TODO : must be numbers only
@@ -150,9 +152,8 @@
             Console.WriteLine("=========Adding New Instructor=========");
             Console.Write("Id : ");
             int id = Convert.ToInt32(Console.ReadLine());
-            string name = ReadName();
-            Console.Write("Specialization : ");
-            string specialization = Console.ReadLine() ?? "";
+            string name = ReadString("Name");
+            string specialization = ReadString("Specialization");
             Console.WriteLine("=====================================");
             //-----------------
             if (school.AddInstructor(new Instructor(id, name, specialization)))
@@ -165,6 +166,51 @@
             }
         }
         //========
+        //TODO : is imp to check for specialization of instructor = course title or not ? [ChooseInstructor]
+        static void AddCourse(School school)
+        {
+            Console.Clear();
+            Console.WriteLine("=========Adding New Course=========");
+            Console.Write("Id : ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            string title = ReadString("Title");
+
+            //-----------------
+            Console.WriteLine($"Assign {title} course to an instructor :");
+            Instructor? choosenInstructor;
+            do
+            {
+                choosenInstructor = ChooseInstructor(school);
+                if (choosenInstructor == null)
+                    Console.WriteLine("Invalid instructor selection, please try again :)");
+                else
+                    break;  
+
+            } while (true);
+            //وبكدة اختارنا واحد من المدرسين 
+            //-----------------
+            //choosenInstructor will not be null here at all due to "do-while" above, so we can safely add the course :)
+            if (school.AddCourse(new Course(id, title, choosenInstructor)))
+                Console.WriteLine($"Course {title} added successfully and assigned to instructor {choosenInstructor.Name} :)");
+            else
+                Console.WriteLine("this course with this id already exists, try again :)");
+
+
+
+        }
+        //========
+        static Instructor? ChooseInstructor(School school)
+        {
+            Console.WriteLine("=============================");
+            foreach(Instructor instructor in school.Instructors)
+            {
+                Console.WriteLine($"\t\t(Id: {instructor.InstructorId}, Name: {instructor.Name})");
+            }
+            Console.WriteLine("=============================");
+            Console.Write("choose an instructor by id: ");
+            int choosenId = Convert.ToInt32(Console.ReadLine());
+            return school.FindInstructor(choosenId);//to be sure that user chose the correct id + to get the instructor which i will pass to the course constructor :)
+        }
 
 
     }

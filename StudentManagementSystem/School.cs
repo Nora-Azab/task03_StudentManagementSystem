@@ -6,9 +6,11 @@ namespace StudentManagementSystem
 {
     public class School
     {
-        private List<Student> Students { get; set; } = [];
-        private List<Course> Courses { get; set; }= new List<Course>();
-        private List<Instructor> Instructors { get; set; } = [];
+        //TODO : i tried to make them private "عشان محدش يعدلهم من بره"
+        //but i need to acces them so i will make them public but with private set :)
+        public List<Student> Students { get; private set; } = [];
+        public List<Course> Courses { get; private set; }= new List<Course>();
+        public List<Instructor> Instructors { get; private set; } = [];
 
         //TODO no ctor?
 

@@ -7,7 +7,7 @@ namespace StudentManagementSystem
     public class Student
     {
 
-        public int StudentId { get; set; }
+        public int StudentId { get; private set; }
         public string Name { get; set; }
         public int Age { get; set; }
 

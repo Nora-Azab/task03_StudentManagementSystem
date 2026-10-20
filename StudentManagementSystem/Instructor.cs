@@ -7,7 +7,7 @@ namespace StudentManagementSystem
     public class Instructor
     {
 
-        public int InstructorId { get; set; }
+        public int InstructorId { get;private set; }
         public string Name { get; set; }
         public string Specialization { get; set; }
 
