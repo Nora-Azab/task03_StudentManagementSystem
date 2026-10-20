@@ -54,9 +54,9 @@ namespace StudentManagementSystem
                     case 8:
                         FindStudentByIdOrName(school);
                         break;
-                    //case 9:
-                    //    FindCourseByIdOrName(school);
-                    //    break;
+                    case 9:
+                        FindCourseByIdOrName(school);
+                        break;
                     //case 10:
                     //    CheckStudentEnrollInCourse(school);
                     //    break;
@@ -338,8 +338,46 @@ namespace StudentManagementSystem
             }
         }
         //========
-         
+        static void FindCourseByIdOrName(School school)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("========Find Course by Id or Title========");
+                Console.WriteLine("1. Find by ID");
+                Console.WriteLine("2. Find by Title");
+                Console.WriteLine("0. Back to the main menu :)");
+                Console.WriteLine("==========================================");
+                int choice = Convert.ToInt32(Console.ReadLine());
 
+                switch (choice)
+                {
+                    case 0:
+                        return; // رجوع للمنيو الرئيسي
+                    case 1:
+                        {
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            Course? c = school.FindCourseById(id);
+                            Console.WriteLine(c != null ? c.PrintDetails() : "Course not found :(");
+                            break;
+                        }
+                    case 2:
+                        {
+                            string name = ReadString("Course Title");
+                            Course? c = school.FindCourseByName(name);
+                            Console.WriteLine(c != null ? c.PrintDetails() : "Course not found :(");
+                            break;
+                        }
+                    default:
+                        Console.WriteLine("Invalid choice, try again :)");
+                        break;
+                }
+
+                Console.WriteLine("press any key to continue :)");
+                Console.ReadKey(true);
+            }
+        }
+        //========
     }
 
 }

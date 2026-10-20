@@ -52,13 +52,12 @@ namespace StudentManagementSystem
                     foundInstructors.Add(Instructors[i]);
             return foundInstructors;
         } 
-        public List<Course> FindCoursesByName(string courseName)
+        public Course? FindCourseByName(string courseName) //مفيش اكتر من كورس بنفس الاسم منطقي يعني
         {
-            List<Course> foundCourses = [];
             for (int i = 0; i < Courses.Count; i++)
                 if (Courses[i].Title == courseName)
-                    foundCourses.Add(Courses[i]);
-            return foundCourses;
+                    return Courses[i];
+            return null;
         }   
         //==========
         public bool AddStudent(Student student)
