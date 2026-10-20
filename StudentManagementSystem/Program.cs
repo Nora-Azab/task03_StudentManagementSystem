@@ -39,9 +39,9 @@ namespace StudentManagementSystem
                     case 3:
                         AddCourse(school);
                         break;
-                    //case 4:
-                    //    EnrollStudentInCourse(school);
-                    //    break;
+                    case 4:
+                        EnrollStudentInCourse(school);
+                        break;
                     //case 5:
                     //    ShowAllStudents(school);
                     //    break;
@@ -81,7 +81,7 @@ namespace StudentManagementSystem
             Console.WriteLine("1. Add Student");//done
             Console.WriteLine("2. Add Instructor");//done
             Console.WriteLine("3. Add Course");//done
-            Console.WriteLine("4. Enroll Student in Course");
+            Console.WriteLine("4. Enroll Student in Course");//done
             Console.WriteLine("5. Show All Students");
             Console.WriteLine("6. Show All Courses");
             Console.WriteLine("7. Show All Instructors");
@@ -105,7 +105,7 @@ namespace StudentManagementSystem
             int age = ReadAge();
             Console.WriteLine("=====================================");
             //-----------------
-            if ( school.AddStudent(new Student(id, name, age)) )
+            if (school.AddStudent(new Student(id, name, age)))
             {
                 Console.WriteLine($"{name} added successfully :)");
             }
@@ -184,7 +184,7 @@ namespace StudentManagementSystem
                 if (choosenInstructor == null)
                     Console.WriteLine("Invalid instructor selection, please try again :)");
                 else
-                    break;  
+                    break;
 
             } while (true);
             //وبكدة اختارنا واحد من المدرسين 
@@ -202,7 +202,7 @@ namespace StudentManagementSystem
         static Instructor? ChooseInstructor(School school)
         {
             Console.WriteLine("=============================");
-            foreach(Instructor instructor in school.Instructors)
+            foreach (Instructor instructor in school.Instructors)
             {
                 Console.WriteLine($"\t\t(Id: {instructor.InstructorId}, Name: {instructor.Name})");
             }
@@ -211,7 +211,37 @@ namespace StudentManagementSystem
             int choosenId = Convert.ToInt32(Console.ReadLine());
             return school.FindInstructor(choosenId);//to be sure that user chose the correct id + to get the instructor which i will pass to the course constructor :)
         }
+        //========
+        static void EnrollStudentInCourse(School school)
+        {
+            Console.Clear();
+            Console.WriteLine("========Enroll Student in a Course========");
+            Console.Write("student id: ");
+            int studentId = Convert.ToInt32(Console.ReadLine());
+            if(school.FindStudent(studentId) == null)
+            {
+                Console.WriteLine("this student id is not found");
+                return;
+            }
+            Console.Write("course id: ");
+            int courseId = Convert.ToInt32(Console.ReadLine());
+            if (school.FindCourse(courseId) == null)
+            {
+                Console.WriteLine("this course id is not found");
+                return;
+            }
 
+            if(school.EnrollStudentInCourse(studentId, courseId))
+            {
+                Console.WriteLine($"Student enrolled in the course successfully :)");
+            }
+            else
+            {
+                Console.WriteLine("Failed to enroll student in course (maybe already enrolled or course is not available) :(");
+            }
+
+
+        }
 
     }
 }
