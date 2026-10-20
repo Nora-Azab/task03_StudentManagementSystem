@@ -11,7 +11,7 @@ namespace StudentManagementSystem
         public string Name { get; set; }
         public int Age { get; set; }
 
-        private List<Course> Courses { get; set; } = [];
+        public List<Course> Courses { get; private set; } = [];
 
         /// i don't allow for "Courses" to be a parameter in the constructor
         /// i let the school to enter the student with "no courses" at first
@@ -39,7 +39,7 @@ namespace StudentManagementSystem
         //---------
         public string PrintDetails()
         {
-            string details = $"\nStudent Details :\nid : {StudentId} ::: Name : {Name} ::: Age : {Age}\n";
+            string details = $"Student Details :\nid : {StudentId} , Name : {Name} , Age : {Age}\n";
 
             details += "Courses Name : \n";
             for(int i = 0;i<Courses.Count; ++i)

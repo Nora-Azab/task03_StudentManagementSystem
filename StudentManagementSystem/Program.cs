@@ -42,15 +42,15 @@ namespace StudentManagementSystem
                     case 4:
                         EnrollStudentInCourse(school);
                         break;
-                    //case 5:
-                    //    ShowAllStudents(school);
-                    //    break;
-                    //case 6:
-                    //    ShowAllCourses(school);
-                    //    break;
-                    //case 7:
-                    //    ShowAllInstructors(school);
-                    //    break;
+                    case 5:
+                        ShowAllStudents(school);
+                        break;
+                    case 6:
+                        ShowAllCourses(school);
+                        break;
+                    case 7:
+                        ShowAllInstructors(school);
+                        break;
                     //case 8:
                     //      FindStudentByIdOrName(school);
                     //    break;
@@ -70,8 +70,8 @@ namespace StudentManagementSystem
                         Console.WriteLine("Invalid choice, try again:)");
                         break;
                 }
-                Console.ReadKey(true);
                 Console.WriteLine("press any key to continue :)");
+                Console.ReadKey(true);
             } while (true);
         }
         //==================
@@ -82,9 +82,9 @@ namespace StudentManagementSystem
             Console.WriteLine("2. Add Instructor");//done
             Console.WriteLine("3. Add Course");//done
             Console.WriteLine("4. Enroll Student in Course");//done
-            Console.WriteLine("5. Show All Students");
-            Console.WriteLine("6. Show All Courses");
-            Console.WriteLine("7. Show All Instructors");
+            Console.WriteLine("5. Show All Students");//done
+            Console.WriteLine("6. Show All Courses"); //done
+            Console.WriteLine("7. Show All Instructors");//done
             Console.WriteLine("8. Find Student by id or name");
             Console.WriteLine("9. Find Course by id or name");
             Console.WriteLine("10. Check if student is enrolled in specific course");
@@ -176,6 +176,12 @@ namespace StudentManagementSystem
             string title = ReadString("Title");
 
             //-----------------
+            if (school.Instructors.Count == 0)
+            {
+                Console.WriteLine("No instructors yet, add an instructor first :)");
+                return;
+            }
+
             Console.WriteLine($"Assign {title} course to an instructor :");
             Instructor? choosenInstructor;
             do
@@ -218,7 +224,7 @@ namespace StudentManagementSystem
             Console.WriteLine("========Enroll Student in a Course========");
             Console.Write("student id: ");
             int studentId = Convert.ToInt32(Console.ReadLine());
-            if(school.FindStudent(studentId) == null)
+            if (school.FindStudent(studentId) == null)
             {
                 Console.WriteLine("this student id is not found");
                 return;
@@ -231,7 +237,7 @@ namespace StudentManagementSystem
                 return;
             }
 
-            if(school.EnrollStudentInCourse(studentId, courseId))
+            if (school.EnrollStudentInCourse(studentId, courseId))
             {
                 Console.WriteLine($"Student enrolled in the course successfully :)");
             }
@@ -242,6 +248,52 @@ namespace StudentManagementSystem
 
 
         }
+        //========
+        static void ShowAllStudents(School school)
+        {
+            Console.Clear();
+            if(school.Students.Count == 0)
+            {
+                Console.WriteLine("No students found in the school yet :(");
+                return;
+            }
+            Console.WriteLine("========All Students========");
+            foreach (Student student in school.Students)
+            {
+                Console.WriteLine(student.PrintDetails());
+            }
+        }
+        //========
+        static void ShowAllCourses(School school)
+        {
+            Console.Clear();
+            if (school.Courses.Count == 0)
+            {
+                Console.WriteLine("No courses found in the school yet :(");
+                return;
+            }
+            Console.WriteLine("========All Courses========");
+            foreach (Course course in school.Courses)
+            {
+                Console.WriteLine(course.PrintDetails());
+            }
+        }
+        //=======
+        static void ShowAllInstructors(School school)
+        {
+            Console.Clear();
+            if (school.Instructors.Count == 0)
+            {
+                Console.WriteLine("No instructors found in the school yet :(");
+                return;
+            }
+            Console.WriteLine("========All Instructors========");
+            foreach (Instructor instructor in school.Instructors)
+            {
+                Console.WriteLine(instructor.PrintDetails());
+            }
+        }
+        //========
 
     }
 }

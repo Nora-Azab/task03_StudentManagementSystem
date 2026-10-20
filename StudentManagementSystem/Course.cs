@@ -20,12 +20,12 @@ namespace StudentManagementSystem
         //-----------------
         public string PrintDetails()
         {
-            string details = $"\nCourse Details :\nid : {CourseId} ::: Title : {Title} ::: Course Instructor Name : ";
+            string details = $"Course Details :\nid : {CourseId} , Title : {Title} , Course Instructor Name : ";
             
             if (Instructor != null)
-                details += $"{Instructor.Name}\n";
+                details += $"{Instructor.Name}";
             else
-                details += "No Instructor Assigned\n";
+                details += "No Instructor Assigned";
             
             return details ;
         }

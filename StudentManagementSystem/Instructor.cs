@@ -20,7 +20,7 @@ namespace StudentManagementSystem
         //-------------
         public string PrintDetails()
         {
-            return $"\nInstructor Details :\nid : {InstructorId} ::: Name : {Name} ::: Specialization : {Specialization}\n";
+            return $"Instructor Details :\nid : {InstructorId} , Name : {Name} , Specialization : {Specialization}";
         }
 
     }
