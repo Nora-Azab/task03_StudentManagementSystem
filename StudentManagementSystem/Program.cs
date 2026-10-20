@@ -60,9 +60,9 @@ namespace StudentManagementSystem
                     case 10:
                         CheckStudentEnrollInCourse(school);
                         break;
-                    //case 11:
-                    //    GetInstructorNameByCourseName(school);
-                    //    break;
+                    case 11:
+                        GetInstructorNameByCourseName(school);
+                        break;
                     case 12:
                         Console.WriteLine("Good Bye :)");
                         return;
@@ -87,7 +87,7 @@ namespace StudentManagementSystem
             Console.WriteLine("7. Show All Instructors");//done
             Console.WriteLine("8. Find Student by id or name");//done
             Console.WriteLine("9. Find Course by id or name");//done
-            Console.WriteLine("10. Check if student is enrolled in specific course");
+            Console.WriteLine("10. Check if student is enrolled in specific course");//done
             Console.WriteLine("11. Return instructor name by course name");
             Console.WriteLine("12. Exit");
             Console.WriteLine("=======================================");
@@ -406,6 +406,27 @@ namespace StudentManagementSystem
 
 
         }
+        //========
+        static void GetInstructorNameByCourseName(School school)
+        {
+            Console.Clear();
+            Console.WriteLine("====Get instructor name by course name====");
+
+            string courseName = ReadString("Course title");
+            Course? c = school.FindCourseByName(courseName);
+            if(c == null)
+                Console.WriteLine("Course not found :(");
+            else
+            {
+                string? instructorName = c.Instructor.Name;
+                if(instructorName == null) 
+                    Console.WriteLine("Course not found :(");
+                else
+                    Console.WriteLine($"Mr. {instructorName} for {courseName} course :)");
+
+            }
+        }
+        //========
     }
 
 }
