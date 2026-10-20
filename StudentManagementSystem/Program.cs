@@ -51,9 +51,9 @@ namespace StudentManagementSystem
                     case 7:
                         ShowAllInstructors(school);
                         break;
-                    //case 8:
-                    //      FindStudentByIdOrName(school);
-                    //    break;
+                    case 8:
+                        FindStudentByIdOrName(school);
+                        break;
                     //case 9:
                     //    FindCourseByIdOrName(school);
                     //    break;
@@ -85,7 +85,7 @@ namespace StudentManagementSystem
             Console.WriteLine("5. Show All Students");//done
             Console.WriteLine("6. Show All Courses"); //done
             Console.WriteLine("7. Show All Instructors");//done
-            Console.WriteLine("8. Find Student by id or name");
+            Console.WriteLine("8. Find Student by id or name");//done
             Console.WriteLine("9. Find Course by id or name");
             Console.WriteLine("10. Check if student is enrolled in specific course");
             Console.WriteLine("11. Return instructor name by course name");
@@ -215,7 +215,7 @@ namespace StudentManagementSystem
             Console.WriteLine("=============================");
             Console.Write("choose an instructor by id: ");
             int choosenId = Convert.ToInt32(Console.ReadLine());
-            return school.FindInstructor(choosenId);//to be sure that user chose the correct id + to get the instructor which i will pass to the course constructor :)
+            return school.FindInstructorById(choosenId);//to be sure that user chose the correct id + to get the instructor which i will pass to the course constructor :)
         }
         //========
         static void EnrollStudentInCourse(School school)
@@ -224,14 +224,14 @@ namespace StudentManagementSystem
             Console.WriteLine("========Enroll Student in a Course========");
             Console.Write("student id: ");
             int studentId = Convert.ToInt32(Console.ReadLine());
-            if (school.FindStudent(studentId) == null)
+            if (school.FindStudentById(studentId) == null)
             {
                 Console.WriteLine("this student id is not found");
                 return;
             }
             Console.Write("course id: ");
             int courseId = Convert.ToInt32(Console.ReadLine());
-            if (school.FindCourse(courseId) == null)
+            if (school.FindCourseById(courseId) == null)
             {
                 Console.WriteLine("this course id is not found");
                 return;
@@ -294,6 +294,53 @@ namespace StudentManagementSystem
             }
         }
         //========
+        static void FindStudentByIdOrName(School school)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("========Find Student by Id or Name========");
+                Console.WriteLine("1. Find by ID");
+                Console.WriteLine("2. Find by Name");
+                Console.WriteLine("0. Back to the main menu :)");
+                Console.WriteLine("==========================================");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 0:
+                        return; // رجوع للمنيو الرئيسي
+                    case 1:
+                        {
+                            int id = Convert.ToInt32(Console.ReadLine());
+                            Student? s = school.FindStudentById(id);
+                            Console.WriteLine(s != null ? s.PrintDetails() : "Student not found :(");
+                            break;
+                        }
+                    case 2:
+                        {
+                            string name = ReadString("Student Name");
+                            List<Student> list = school.FindStudentsByName(name);
+                            if (list.Count > 0)
+                                foreach (Student s in list)
+                                    Console.WriteLine(s.PrintDetails());
+                            else
+                                Console.WriteLine("No students found :(");
+                            break;
+                        }
+                    default:
+                        Console.WriteLine("Invalid choice, try again :)");
+                        break;
+                }
+
+                Console.WriteLine("press any key to continue :)");
+                Console.ReadKey(true);
+            }
+        }
+        //========
+         
 
     }
+
 }
+

@@ -39,8 +39,8 @@ namespace StudentManagementSystem
         //---------
         public string PrintDetails()
         {
-            string details = $"Student Details :\nid : {StudentId} , Name : {Name} , Age : {Age}\n";
-
+            string details ="============================\n" ;
+            details += $"Student Details :\nid : {StudentId} , Name : {Name} , Age : {Age}\n";
             details += "Courses Name : \n";
             for(int i = 0;i<Courses.Count; ++i)
             {
