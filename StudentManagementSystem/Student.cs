@@ -11,7 +11,7 @@ namespace StudentManagementSystem
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public List<Course> Courses { get; set; } = [];//TODO ref
+        private List<Course> Courses { get; set; } = [];
 
         /// i don't allow for "Courses" to be a parameter in the constructor
         /// i let the school to enter the student with "no courses" at first
