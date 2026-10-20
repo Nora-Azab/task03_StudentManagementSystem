@@ -111,6 +111,17 @@ namespace StudentManagementSystem
             /// studentTarget.Courses.Add(courseTarget);//better than calling the "Enroll" method because i already checked if the course is null or not and if the student is enrolled in it or not
             /// return true;
         }
+        //================
+        public bool IsStudentEnrolledInCourse(int studentId, int courseId)
+        {
+            Student? s = FindStudentById(studentId);
+            if (s == null) return false;
 
+            foreach (Course c in s.Courses)
+                if (c.CourseId == courseId)
+                    return true;
+
+            return false;
+        }
     }
 }

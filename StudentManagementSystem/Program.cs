@@ -57,9 +57,9 @@ namespace StudentManagementSystem
                     case 9:
                         FindCourseByIdOrName(school);
                         break;
-                    //case 10:
-                    //    CheckStudentEnrollInCourse(school);
-                    //    break;
+                    case 10:
+                        CheckStudentEnrollInCourse(school);
+                        break;
                     //case 11:
                     //    GetInstructorNameByCourseName(school);
                     //    break;
@@ -86,7 +86,7 @@ namespace StudentManagementSystem
             Console.WriteLine("6. Show All Courses"); //done
             Console.WriteLine("7. Show All Instructors");//done
             Console.WriteLine("8. Find Student by id or name");//done
-            Console.WriteLine("9. Find Course by id or name");
+            Console.WriteLine("9. Find Course by id or name");//done
             Console.WriteLine("10. Check if student is enrolled in specific course");
             Console.WriteLine("11. Return instructor name by course name");
             Console.WriteLine("12. Exit");
@@ -378,6 +378,34 @@ namespace StudentManagementSystem
             }
         }
         //========
+        static void CheckStudentEnrollInCourse(School school)
+        {
+            Console.Clear();
+            Console.WriteLine("====Check the student enrolled in this Course or not====");
+
+            int studentId = Convert.ToInt32(Console.ReadLine());
+            Student? student = school.FindStudentById(studentId);
+            if (student == null)
+            {
+                Console.WriteLine("Student not found :(");
+                return;
+            }
+            //----------------
+            int courseId = Convert.ToInt32(Console.ReadLine());
+            Course? course = school.FindCourseById(courseId);
+            if (course == null)
+            {
+                Console.WriteLine("Course not found :(");
+                return;
+            }
+            //----------------
+            if(school.IsStudentEnrolledInCourse(studentId , courseId))
+                Console.WriteLine($"{student.Name} is already enrolled in {course.Title} course :)");
+            else
+                Console.WriteLine($"{student.Name} is not enrolled in {course.Title} course :(");
+
+
+        }
     }
 
 }
